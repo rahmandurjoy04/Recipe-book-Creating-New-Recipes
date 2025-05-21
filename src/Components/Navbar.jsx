@@ -1,18 +1,22 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router';
 import ThemeToggle from './ThemeToggle';
-// import { valueContext } from '../Layout/HomeLayout';
+import { valueContext } from '../Root';
 
 const Navbar = () => {
-    // const { user, handleLogOut } = useContext(valueContext);
-    // const handleLogOutBtn = () => {
-    //     // handleLogOut()
-    // }
+    const { user, handleLogOut } = useContext(valueContext);
+
+
+    const handleLogOutBtn = () => {
+        handleLogOut()
+    }
     const links = <>
         <NavLink to={'/'}>Home</NavLink>
         <NavLink to={'/allrecipes'}>All Recipes</NavLink>
         <NavLink to={'/adrecipe'}>Add Recipe</NavLink>
         <NavLink to={'/myrecipes'}>My Recipes</NavLink>
+
+
         <NavLink to={'/about'}>About</NavLink>
 
     </>
@@ -34,7 +38,6 @@ const Navbar = () => {
                         <h1 className='text-xl font-extrabold'>Recipe Book</h1>
                         <ThemeToggle></ThemeToggle>
                     </div>
-                    {/* <a className=""><img className='w-[180px] h-[80px]' src={logo} alt="" /></a> */}
                 </div>
                 <div className="navbar-center hidden sm:flex">
                     <ul className="menu menu-horizontal px-1 flex justify-center items-center gap-4">
@@ -45,7 +48,7 @@ const Navbar = () => {
                 </div >
                 <div className="navbar-end space-x-3">
                     <div className='relative flex items-center group'>
-                        {/* {user?.photoURL && (
+                        {user?.photoURL && (
                             <img
                                 className="w-10 h-10 border rounded-full"
                                 src={user.photoURL}
@@ -54,11 +57,11 @@ const Navbar = () => {
                         )}
                         <div className="absolute flex mb-2 left-1/2 -translate-x-1/2 rounded bg-gray-800 text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                             {user?.displayName || "No User"}
-                        </div> */}
+                        </div>
                     </div>
-                    {/* {
+                    {
                         user ? <button onClick={handleLogOutBtn} className="btn">LogOut</button> : <Link to={'/auth/login'} ><button className='btn'>LogIn</button></Link>
-                    } */}
+                    }
 
                 </div>
             </div>

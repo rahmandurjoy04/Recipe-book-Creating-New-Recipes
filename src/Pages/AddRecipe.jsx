@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
+import { valueContext } from "../Root";
 
 const AddRecipe = () => {
-
-
+    const { setRecipes, recipes } = useContext(valueContext)
 
 
     const handleSubmit = async (e) => {
@@ -28,6 +28,8 @@ const AddRecipe = () => {
                         title: "Your Recipe has been saved",
                         icon: "success",
                     });
+                    const recipeWithId = { ...newRecipeData, _id: data.insertedId };
+                    setRecipes([...recipes, recipeWithId]);
                 }
                 console.log('After adding new recipe', data)
             })
@@ -79,7 +81,7 @@ const AddRecipe = () => {
                 <label>Cuisine Type</label>
                 <select
                     className="select select-bordered w-full"
-                    name="cusisne"
+                    name="cuisine"
                 >
                     <option>Italian</option>
                     <option>Mexican</option>
@@ -121,6 +123,14 @@ const AddRecipe = () => {
                     className="input input-bordered w-full"
                     value={0}
 
+                />
+                <label>Author's Email</label>
+                <input
+                    type="email"
+                    placeholder="user@gmail.com"
+                    name="email"
+                    className="input input-bordered w-full"
+                    required
                 />
 
                 <button type="submit" className="btn btn-primary w-full">
