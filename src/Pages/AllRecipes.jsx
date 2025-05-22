@@ -9,6 +9,10 @@ const AllRecipes = () => {
     const { recipes, recipesLoading } = useContext(valueContext)
     console.log(recipes);
 
+    if (!Array.isArray(recipes)) {
+    return <div className="flex justify-center my-8">No recipes available or data is invalid.</div>;
+  }
+
     if (recipesLoading) {
 
         return (<div className="flex justify-center items-center h-screen">

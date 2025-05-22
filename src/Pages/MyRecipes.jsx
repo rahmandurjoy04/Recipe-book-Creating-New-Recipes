@@ -12,6 +12,10 @@ const MyRecipes = () => {
 
     console.log(myRecipes);
 
+    if (!Array.isArray(myRecipes)) {
+    return <div className="flex justify-center my-8">No recipes available or data is invalid.</div>;
+  }
+
 
     if (myRecipes.length === 0 && !authLoading) {
         return (

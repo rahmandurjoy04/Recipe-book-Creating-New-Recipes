@@ -22,7 +22,6 @@ export const router = createBrowserRouter([
       {
         index: true,
         path: "/",
-        loader: () => fetch('https://recipe-book-server-phi.vercel.app/popularrecipes'),
         Component: Home
       },
       {
