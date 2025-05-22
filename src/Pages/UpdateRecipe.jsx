@@ -1,44 +1,38 @@
-import React, { useContext } from "react";
+import React from "react";
 import Swal from "sweetalert2";
-import { valueContext } from "../Root";
-import { useNavigate } from "react-router";
+import { useLoaderData } from "react-router";
 
-const AddRecipe = () => {
-    const { setRecipes, recipes, setMyRecipes } = useContext(valueContext)
+const UpdateRecipe = () => {
+    const cats = ["Breakfast", "Lunch", "Dinner", "Dessert", "Vegan"]
 
+    const { category, cuisine, email, imageURL, ingredients, instructions, likes, time, title, _id } = useLoaderData()
 
-    const navigate = useNavigate()
-    const handleSubmit = async (e) => {
+    const handleUpdateSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
-        const newRecipeData = Object.fromEntries(formData.entries())
+        const UpdatedRecipeData = Object.fromEntries(formData.entries())
 
 
-        // Send Data to DB
-        fetch('https://recipe-book-server-phi.vercel.app/recipes', {
-            method: 'POST',
+        // update Recipe to DB 
+        fetch(`https://recipe-book-server-phi.vercel.app/recipes/${_id}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(newRecipeData)
+            body: JSON.stringify(UpdatedRecipeData)
         })
             .then(res => res.json())
             .then(data => {
-                if (data.insertedId) {
+                if (data.modifiedCount) {
                     Swal.fire({
-                        title: "Your Recipe has been saved",
                         icon: "success",
+                        title: "Your Recipe has been Updated",
                     });
-                    const recipeWithId = { ...newRecipeData, _id: data.insertedId };
-                    console.log(recipeWithId);
-                    setRecipes([...recipes, recipeWithId]);
-                    setMyRecipes([...recipes, recipeWithId]);
+
                 }
-                console.log('After adding new recipe', data)
-                navigate('/myrecipes')
-                
             })
+
 
 
 
@@ -48,8 +42,8 @@ const AddRecipe = () => {
     return (
         <>
             <div className="max-w-2xl mx-auto p-6 bg-base-200 rounded-lg shadow my-8">
-                <h2 className="text-3xl font-bold mb-4 text-center">Add a New Recipe</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <h2 className="text-3xl font-bold mb-4 text-center">Update Your Recipe</h2>
+                <form onSubmit={handleUpdateSubmit} className="space-y-4">
 
                     <label>Recipe Title</label>
                     <input
@@ -58,6 +52,7 @@ const AddRecipe = () => {
                         name="title"
                         className="input input-bordered w-full"
                         required
+                        defaultValue={title}
                     />
 
                     <label>Recipe Image URL</label>
@@ -67,6 +62,8 @@ const AddRecipe = () => {
                         name="imageURL"
                         className="input input-bordered w-full"
                         required
+                        defaultValue={imageURL}
+
                     />
 
                     <label>Recipe Ingredients</label>
@@ -75,6 +72,7 @@ const AddRecipe = () => {
                         name="ingredients"
                         className="textarea textarea-bordered w-full"
                         required
+                        defaultValue={ingredients}
                     />
 
                     <label>Instructions</label>
@@ -83,6 +81,7 @@ const AddRecipe = () => {
                         name="instructions"
                         className="textarea textarea-bordered w-full"
                         required
+                        defaultValue={instructions}
                     />
 
 
@@ -90,6 +89,7 @@ const AddRecipe = () => {
                     <select
                         className="select select-bordered w-full"
                         name="cuisine"
+                        defaultValue={cuisine}
                     >
                         <option>Italian</option>
                         <option>Mexican</option>
@@ -105,31 +105,33 @@ const AddRecipe = () => {
                         placeholder="Preparation Time (in minutes)"
                         className="input input-bordered w-full"
                         required
+                        defaultValue={time}
                     />
 
                     <div className="form-control">
                         <label className="label">Categories:</label>
                         <div className="grid grid-cols-3 gap-2">
-                            {["Breakfast", "Lunch", "Dinner", "Dessert", "Vegan"].map((cat) => (
+                            {cats.map((cat) => (
                                 <label key={cat} className="label cursor-pointer">
                                     <input
                                         type="checkbox"
                                         className="checkbox checkbox-sm mr-2"
                                         name="category"
                                         value={cat}
+                                        defaultChecked={cat === category}
                                     />
                                     {cat}
                                 </label>
                             ))}
                         </div>
                     </div>
-                    <label>Like Count</label>
+                    <label>Like Count (Author Can't Update)</label>
                     <input
                         type="text"
                         placeholder="Like Count"
                         name="likes"
                         className="input input-bordered w-full"
-                        value={0}
+                        value={likes}
 
                     />
                     <label>Author's Email</label>
@@ -139,10 +141,11 @@ const AddRecipe = () => {
                         name="email"
                         className="input input-bordered w-full"
                         required
+                        defaultValue={email}
                     />
 
                     <button type="submit" className="btn btn-primary w-full">
-                        Add Recipe
+                        Update Recipe
                     </button>
                 </form>
             </div>
@@ -150,4 +153,4 @@ const AddRecipe = () => {
     );
 };
 
-export default AddRecipe;
+export default UpdateRecipe;

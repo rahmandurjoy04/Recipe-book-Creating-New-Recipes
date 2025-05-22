@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import ThemeToggle from './ThemeToggle';
 import { valueContext } from '../Root';
 
 const Navbar = () => {
-    const { user, handleLogOut } = useContext(valueContext);
+    const { user, handleLogOut, authLoading } = useContext(valueContext);
+    const [showMenu, setShowMenu] = useState(false);
+
+    const toggleName = () => setShowMenu(true);
+
 
 
     const handleLogOutBtn = () => {
@@ -15,8 +19,6 @@ const Navbar = () => {
         <NavLink to={'/allrecipes'}>All Recipes</NavLink>
         <NavLink to={'/adrecipe'}>Add Recipe</NavLink>
         <NavLink to={'/myrecipes'}>My Recipes</NavLink>
-
-
         <NavLink to={'/about'}>About</NavLink>
 
     </>
@@ -46,24 +48,49 @@ const Navbar = () => {
                         }
                     </ul>
                 </div >
-                <div className="navbar-end space-x-3">
-                    <div className='relative flex items-center group'>
-                        {user?.photoURL && (
-                            <img
-                                className="w-10 h-10 border rounded-full"
-                                src={user.photoURL}
-                                alt=""
-                            />
-                        )}
-                        <div className="absolute flex mb-2 left-1/2 -translate-x-1/2 rounded bg-gray-800 text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                            {user?.displayName || "No User"}
-                        </div>
-                    </div>
-                    {
-                        user ? <button onClick={handleLogOutBtn} className="btn">LogOut</button> : <Link to={'/auth/login'} ><button className='btn'>LogIn</button></Link>
-                    }
 
+
+                <div className="navbar-end space-x-3">
+                {
+                    authLoading ? (<span className="loading loading-dots loading-xl mr-4"></span>
+                    ) : (<>
+                            <div className='relative flex items-center group'>
+                                {!showMenu && user?.photoURL && (
+                                    <img
+                                        className="w-10 h-10 border rounded-full mr-7"
+                                        src={user.photoURL}
+                                        alt=""
+                                        onClick={toggleName}
+                                    />
+                                )}
+                                {showMenu && user && (
+                                    <div className='flex justify-center items-center gap-4'>
+                                        <div className='px-3 py-1 rounded-xl border bg-[#5bdef5]'>{user?.displayName || ""}</div>
+                                        <button onClick={handleLogOutBtn} className="btn">LogOut</button>
+                                    </div>
+                                )}
+
+                                {
+                                    !user && <div>
+                                        {
+                                            (<>
+                                                <Link to={'/auth/login'} ><button className='btn mr-4'>LogIn</button></Link>
+                                                <Link to={'/auth/signup'} ><button className='btn'>Register</button></Link>
+                                            </>)
+                                        }
+                                    </div>
+                                }
+
+                            </div>
+
+
+
+
+                    </>)
+                }
                 </div>
+
+
             </div>
         </div>
     );

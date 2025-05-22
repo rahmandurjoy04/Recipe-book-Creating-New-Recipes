@@ -11,6 +11,7 @@ import SignIn from "../Pages/SIgnIn";
 import Signup from "../Pages/SIgnup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import RecipeDetails from "../Components/RecipeDetails";
+import UpdateRecipe from "../Pages/UpdateRecipe";
 
 export const router = createBrowserRouter([
   {
@@ -21,25 +22,34 @@ export const router = createBrowserRouter([
       {
         index: true,
         path: "/",
-        loader: () => fetch('http://localhost:3000/popularrecipes'),
+        loader: () => fetch('https://recipe-book-server-phi.vercel.app/popularrecipes'),
         Component: Home
       },
       {
         path: `popular/:id`,
-        loader: ({params}) => fetch(`http://localhost:3000/popularrecipes/${params.id}`),
+        loader: ({params}) => fetch(`https://recipe-book-server-phi.vercel.app/popularrecipes/${params.id}`),
         Component: RecipeDetails
       },
       {
         path: 'allrecipes',
-        loader: () => fetch('http://localhost:3000/recipes'),
+        loader: () => fetch('https://recipe-book-server-phi.vercel.app/recipes'),
         Component: AllRecipes
       },
       {
         path: 'recipes/:id',
-        loader: ({params}) => fetch(`http://localhost:3000/recipes/${params.id}`),
+        loader: ({params}) => fetch(`https://recipe-book-server-phi.vercel.app/recipes/${params.id}`),
         // Component: RecipeDetails
         element:<PrivateRoute>
           <RecipeDetails></RecipeDetails>
+        </PrivateRoute>
+      },
+
+
+      // Getting recipes with my email
+      {
+        path: '/myrecipes',
+        element:<PrivateRoute>
+          <MyRecipes></MyRecipes>
         </PrivateRoute>
       },
       {
@@ -47,6 +57,12 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
           <AddRecipe></AddRecipe>
         </PrivateRoute>
+      },
+      {
+        path: '/updaterecipe/:id',
+        loader:({params})=>fetch(`https://recipe-book-server-phi.vercel.app/recipes/${params.id}`),
+        element:
+          <UpdateRecipe></UpdateRecipe>
       },
       {
         path: 'myrecipes',

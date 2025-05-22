@@ -5,24 +5,84 @@ import Footer from './Components/Footer';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import { toast, ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 export const valueContext = createContext()
 const Root = () => {
     const navigate = useNavigate()
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [authLoading, setAuthLoading] = useState(true);
+    const [recipesLoading, setRecipesLoading] = useState(true);
     const [recipes, setRecipes] = useState([])
+    const [myRecipes, setMyRecipes] = useState([])
+
 
     const googleProvider = new GoogleAuthProvider;
     googleProvider.addScope("profile");
     googleProvider.addScope("email");
 
     useEffect(() => {
-        fetch('http://localhost:3000/recipes')
+        fetch('https://recipe-book-server-phi.vercel.app/recipes')
             .then(res => res.json())
-            .then(json => setRecipes(json))
+            .then(data => {
+                setRecipes(data)
+                setRecipesLoading(false)
+            })
             .catch(err => console.error('Error fetching data:', err));
     }, []);
+
+
+    // Fetching My Recipes
+
+    useEffect(() => {
+        const fetchRecipes = async () => {
+
+            const response = await fetch(`https://recipe-book-server-phi.vercel.app/myrecipes?email=${(user.email)}`);
+            const data = await response.json();
+            setMyRecipes(data)
+        };
+        fetchRecipes();
+    }, [user]);
+
+
+
+    // Deleting Specific Recipe
+    const handleDeleteRecipe = (_id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`https://recipe-book-server-phi.vercel.app/recipes/${_id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        const remainingRecipe1 = myRecipes.filter(rec => rec._id !== _id);
+                        const remainingRecipe2 = recipes.filter(rec => rec._id !== _id);
+                        setMyRecipes(remainingRecipe1)
+                        setRecipes(remainingRecipe2)
+                        console.log(remainingRecipe1);
+                        console.log(remainingRecipe2);
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your Recipe has been deleted.",
+                            icon: "success"
+                        });
+
+                    })
+
+            }
+        });
+
+    }
+
 
 
     //google login
@@ -40,13 +100,18 @@ const Root = () => {
     }
 
 
+
+
+
+
+
     // Signin
     const handleSignIn = (email, password, from) => {
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                setLoading(false);
                 navigate(from ? from : '/');
                 toast.success("Login Successful!");
+
 
 
             })
@@ -64,8 +129,17 @@ const Root = () => {
                     displayName: name,
                     photoURL: photo
                 })
-                navigate('/')
-                toast.success("SignUp Successful!")
+                    .then(() => {
+                        const updatedUser = {
+                            uid: auth.currentUser.uid,
+                            email: auth.currentUser.email,
+                            displayName: name,
+                            photoURL: photo
+                        };
+                        setUser(updatedUser);
+                        navigate('/')
+                        toast.success("SignUp Successful!")
+                    })
             })
             .catch(error => {
                 toast.error('Something Went Wrong...');
@@ -85,6 +159,7 @@ const Root = () => {
                 photoURL: photo
             });
 
+
         }).catch((error) => {
             console.log(error);
             toast("An error occurred")
@@ -97,7 +172,6 @@ const Root = () => {
         signOut(auth)
             .then(() => {
                 toast.success("Sign-out Successful!")
-                setLoading(false);
             }).catch((error) => {
                 toast.error('Something Went Wrong!');
                 console.log(error);
@@ -108,7 +182,7 @@ const Root = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            setLoading(false);
+            setAuthLoading(false);
         })
         return () => {
             unsubscribe();
@@ -120,13 +194,16 @@ const Root = () => {
         handleSignUp,
         handleProfileUpdate,
         user,
-        loading,
-        setLoading,
+        authLoading,
+        recipesLoading,
         handleLogOut,
         handleGoogleLogin,
         handleSignIn,
         recipes,
-        setRecipes
+        setRecipes,
+        myRecipes,
+        setMyRecipes,
+        handleDeleteRecipe
     }
     return (
         <div>
