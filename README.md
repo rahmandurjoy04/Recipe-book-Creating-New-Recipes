@@ -2,7 +2,7 @@
 
 Welcome to the Recipe Book App, a dynamic and user-friendly platform designed for food enthusiasts to manage, share, and discover delicious recipes. Explore a vibrant community of culinary creations, save your favorites, and showcase your own recipes with ease.
 
-# Visit the live site at: https://recipe-book-a-10.web.app/allrecipes
+# Visit the live site at: https://recipe-book-a-10.web.app/
 
 
 # Features
@@ -19,3 +19,6 @@ Welcome to the Recipe Book App, a dynamic and user-friendly platform designed fo
 * Deployment: Firebase (client), Vercel (server)
 * Other: Environment variables for secure configuration, custom 404  page, responsive design
 
+# Acknowledgments
+* Inspired by food enthusiast communities and modern web development practices.
+* Thanks to the open-source libraries (Tailwind CSS, Lottie React, etc.) that power this app.
