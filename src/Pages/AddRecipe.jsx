@@ -123,7 +123,7 @@ const AddRecipe = () => {
                     </div>
                     <label>Like Count</label>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Like Count"
                         name="likes"
                         className="input input-bordered w-full"

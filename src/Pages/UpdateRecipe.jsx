@@ -1,9 +1,10 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const UpdateRecipe = () => {
     const cats = ["Breakfast", "Lunch", "Dinner", "Dessert", "Vegan"]
+    const navigate = useNavigate()
 
     const { category, cuisine, email, imageURL, ingredients, instructions, likes, time, title, _id } = useLoaderData()
 
@@ -29,6 +30,7 @@ const UpdateRecipe = () => {
                         icon: "success",
                         title: "Your Recipe has been Updated",
                     });
+                    navigate('/')
 
                 }
             })
@@ -125,13 +127,13 @@ const UpdateRecipe = () => {
                             ))}
                         </div>
                     </div>
-                    <label>Like Count (Author Can't Update)</label>
+                    <label>Like Count</label>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Like Count"
                         name="likes"
                         className="input input-bordered w-full"
-                        value={likes}
+                        defaultValue={likes}
 
                     />
                     <label>Author's Email</label>
@@ -144,6 +146,7 @@ const UpdateRecipe = () => {
                         defaultValue={email}
                     />
 
+                    
                     <button type="submit" className="btn btn-primary w-full">
                         Update Recipe
                     </button>
