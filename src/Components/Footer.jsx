@@ -19,7 +19,7 @@ const Footer = () => {
                 </div>
 
                 {/* Important Links */}
-                <div className='mx-auto'>
+                <div className='md:mx-auto'>
                     <h3 className="font-semibold text-lg mb-3">Important Links</h3>
                     <ul className="space-y-2">
                         <li><a href="/terms" className="link link-hover">Terms of Service</a></li>
@@ -50,7 +50,7 @@ const Footer = () => {
 
             </div>
 
-            <div className="text-center mt-8 text-sm opacity-70">
+            <div className="md:text-center mt-8 text-sm opacity-70">
                 © {new Date().getFullYear()} <span className='font-extrabold'>Recipe Book</span>. All rights reserved.
             </div>
         </footer>

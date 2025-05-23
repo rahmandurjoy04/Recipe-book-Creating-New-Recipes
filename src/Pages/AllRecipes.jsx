@@ -3,6 +3,11 @@ import RecipeCardAllRecipe from '../Components/RecipeCardAllRecipe';
 import { valueContext } from '../Root';
 import Lottie from 'lottie-react';
 import groovyWalkAnimation from '../assets/groovyWalk.json';
+import Typewriter from 'typewriter-effect';
+
+
+
+
 
 
 const AllRecipes = () => {
@@ -10,8 +15,8 @@ const AllRecipes = () => {
     console.log(recipes);
 
     if (!Array.isArray(recipes)) {
-    return <div className="flex justify-center my-8">No recipes available or data is invalid.</div>;
-  }
+        return <div className="flex justify-center my-8">No recipes available ....Please Reload</div>;
+    }
 
     if (recipesLoading) {
 
@@ -23,6 +28,16 @@ const AllRecipes = () => {
 
     return (
         <div>
+            <div className='text-4xl  text-yellow-800 text-center font-bold my-6'>
+                <Typewriter
+                    options={{
+                        strings: ['All Recipes...'],
+                        autoStart: true,
+                        loop: true,
+                    }}
+                />
+
+            </div>
             {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-8 w-11/12 mx-auto'>
                     {

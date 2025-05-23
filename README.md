@@ -1,12 +1,14 @@
-# React + Vite
+# Features
+* Dynamic Recipe Discovery: Browse a curated selection of top recipes on the homepage, sorted by the highest number of likes using MongoDB’s sort and limit operators.
+* Personalized Recipe Management: Add, update, and delete your own recipes on the private "My Recipes" page, with a user-friendly modal for editing and a secure database integration.
+* Engaging User Experience: Enjoy a modern, responsive design optimized for mobile, tablet, and desktop, enhanced with interactive features like a dark/light theme toggle and animations from React libraries (e.g., Lottie React).
+* Social Interaction: Like recipes to show your appreciation. Filter recipes by cuisine type (e.g., Italian, Mexican) on the All Recipes page for a tailored browsing experience.
+* Secure Authentication: Seamlessly log in or register using email/password or Google authentication, with protected private routes ensuring a secure and smooth user experience across all devices.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Technologies Used
+* Frontend: React, Tailwind CSS, React Router, Firebase Authentication, Lottie React, React Awesome Reveal ,Typewriter-effect
+* Backend: Node.js, Express.js, MongoDB
+* Deployment: Firebase (client), Vercel (server)
+* Other: Environment variables for secure configuration, custom 404  page, responsive design
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

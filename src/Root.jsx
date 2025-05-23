@@ -13,6 +13,7 @@ const Root = () => {
     const [user, setUser] = useState(null)
     const [authLoading, setAuthLoading] = useState(true);
     const [recipesLoading, setRecipesLoading] = useState(true);
+    const [myRecipesLoading, setMyRecipesLoading] = useState(true);
     const [initialLoading, setInitialLoading] = useState(true);
     const [recipes, setRecipes] = useState([])
     const [myRecipes, setMyRecipes] = useState([])
@@ -53,6 +54,8 @@ const Root = () => {
             const response = await fetch(`https://recipe-book-server-phi.vercel.app/myrecipes?email=${(user.email)}`);
             const data = await response.json();
             setMyRecipes(data)
+            setMyRecipesLoading(false)
+
         };
         fetchRecipes();
     }, [user]);
@@ -218,7 +221,8 @@ const Root = () => {
         setMyRecipes,
         handleDeleteRecipe,
         initialRecipes,
-        initialLoading
+        initialLoading,
+        myRecipesLoading
     }
     return (
         <div>

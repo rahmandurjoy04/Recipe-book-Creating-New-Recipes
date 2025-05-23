@@ -7,17 +7,17 @@ import { Link } from 'react-router';
 
 
 const MyRecipes = () => {
-    const { myRecipes ,authLoading } = useContext(valueContext);
-    
+    const { myRecipes, myRecipesLoading } = useContext(valueContext);
+
 
     console.log(myRecipes);
 
     if (!Array.isArray(myRecipes)) {
-    return <div className="flex justify-center my-8">No recipes available or data is invalid.</div>;
-  }
+        return <div className="flex justify-center my-8">No recipes available or data is invalid.</div>;
+    }
 
 
-    if (myRecipes.length === 0 && !authLoading) {
+    if (myRecipes.length === 0 && myRecipesLoading) {
         return (
             <div className='flex flex-col md:flex-row justify-between md:items-center w-10/12 py-4 mx-auto'>
                 <div>
