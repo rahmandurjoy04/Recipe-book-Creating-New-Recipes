@@ -3,7 +3,7 @@ import RecipeCardAllRecipe from '../Components/RecipeCardAllRecipe';
 import { valueContext } from '../Root';
 import Lottie from 'lottie-react';
 import groovyWalkAnimation from '../assets/groovyWalk.json';
-import Typewriter from 'typewriter-effect';
+import { Typewriter } from 'react-simple-typewriter'
 
 
 
@@ -29,13 +29,17 @@ const AllRecipes = () => {
     return (
         <div>
             <div className='text-4xl  text-yellow-800 text-center font-bold my-6'>
-                <Typewriter
-                    options={{
-                        strings: ['All Recipes...'],
-                        autoStart: true,
-                        loop: true,
-                    }}
-                />
+                <h1 className="text-3xl text-center font-bold my-6">
+                    <Typewriter
+                        words={['All Recipes...']}
+                        loop={0} // 0 for infinite
+                        cursor
+                        cursorStyle='|'
+                        typeSpeed={70}
+                        deleteSpeed={50}
+                        delaySpeed={1000}
+                    />
+                </h1>
 
             </div>
             {

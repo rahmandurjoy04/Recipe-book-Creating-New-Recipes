@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { SlLike } from 'react-icons/sl';
 import { useLoaderData } from 'react-router';
+import { valueContext } from '../Root';
 
 const RecipeDetails = () => {
 
-    const { title, imageURL, ingredients, instructions, likes, time, cuisine } = useLoaderData()
+
+    const {user} = useContext(valueContext)
+    const { title, imageURL, ingredients, instructions, likes, time, cuisine ,email } = useLoaderData()
+    const [like,setLike]= useState(likes)
     const handleLike = () =>{
-        console.log('Liked From Details');
+
+        if(user.email !== email){
+            setLike(parseInt(like)+1)
+        }
     }
+    console.log(user);
+    console.log(email);
 
     return (
         <div className='my-12'>
             <div className="flex mx-auto flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
+                <h1 className='text-center'>{like} People interested in this recipe</h1>
 
                 <div>
                     <img src={imageURL} alt="" className="object-cover rounded w-full mb-4 h-64 dark:bg-gray-500" />
@@ -33,7 +43,7 @@ const RecipeDetails = () => {
                         <button type="button" onClick={handleLike} className="flex items-center p-1 space-x-1.5 text-xl">
                             <SlLike />
                         </button>
-                        <span className='text-xl'>{likes}</span>
+                        <span className='text-xl'>{like}</span>
                     </div>
                 </div>
             </div>
