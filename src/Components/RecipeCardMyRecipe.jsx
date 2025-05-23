@@ -15,7 +15,6 @@ const RecipeCardMyRecipe = ({ myRecipe }) => {
     const navigate = useNavigate();
     const { title, imageURL, cuisine, likes, _id, ingredients, instructions, time, category } = myRecipe
     const handleUpdate = (id) => {
-        console.log(id);
         navigate(`/updaterecipe/${id}`)
     }
     return (

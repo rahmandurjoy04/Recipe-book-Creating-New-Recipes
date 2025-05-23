@@ -31,11 +31,9 @@ const AddRecipe = () => {
                         icon: "success",
                     });
                     const recipeWithId = { ...newRecipeData, _id: data.insertedId };
-                    console.log(recipeWithId);
                     setRecipes([...recipes, recipeWithId]);
                     setMyRecipes([...recipes, recipeWithId]);
                 }
-                console.log('After adding new recipe', data)
                 navigate('/')
                 
             })

@@ -96,8 +96,6 @@ const Root = () => {
                         const remainingRecipe2 = recipes.filter(rec => rec._id !== _id);
                         setMyRecipes(remainingRecipe1)
                         setRecipes(remainingRecipe2)
-                        console.log(remainingRecipe1);
-                        console.log(remainingRecipe2);
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your Recipe has been deleted.",

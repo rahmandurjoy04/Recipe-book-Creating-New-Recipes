@@ -28,7 +28,6 @@ const Home = () => {
             });
     }, [])
 
-    console.log(items);
 
 
     if (initialLoading) {
@@ -93,7 +92,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <div className="text-green-600 text-4xl mb-2 flex justify-center">
+            <div className="text-green-600 text-4xl flex justify-center mb-4">
                 <Typewriter
                     words={['New Recipe Alert']}
                     loop={0}

@@ -15,8 +15,7 @@ const RecipeDetails = () => {
             setLike(parseInt(like)+1)
         }
     }
-    console.log(user);
-    console.log(email);
+   
 
     return (
         <div className='my-12'>

@@ -14,7 +14,7 @@ Welcome to the Recipe Book App, a dynamic and user-friendly platform designed fo
 
 
 # Technologies Used
-* Frontend: React, Tailwind CSS, React Router, Firebase Authentication, Lottie React, React Awesome Reveal ,React-simple-typewriter
+* Frontend: React, Tailwind CSS, React Router, Firebase Authentication, Lottie React(As Loading Animation),React-simple-typewriter
 * Backend: Node.js, Express.js, MongoDB
 * Deployment: Firebase (client), Vercel (server)
 * Other: Environment variables for secure configuration, custom 404  page, responsive design

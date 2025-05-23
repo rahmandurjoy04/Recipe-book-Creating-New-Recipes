@@ -10,7 +10,6 @@ const MyRecipes = () => {
     const { myRecipes ,authLoading ,myRecipesLoading } = useContext(valueContext);
 
 
-    console.log(myRecipes);
 
 
     if (myRecipes.length === 0 && (authLoading || myRecipesLoading)) {

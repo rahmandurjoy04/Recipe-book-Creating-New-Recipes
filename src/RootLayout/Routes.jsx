@@ -12,6 +12,7 @@ import Signup from "../Pages/SIgnup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import RecipeDetails from "../Components/RecipeDetails";
 import UpdateRecipe from "../Pages/UpdateRecipe";
+import About from "../Pages/About";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: 'auth/signup',
         Component: Signup
+      },
+      {
+        path: 'about',
+        Component: About
       },
     ]
   },
