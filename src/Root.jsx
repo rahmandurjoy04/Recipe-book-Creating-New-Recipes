@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
@@ -24,6 +24,9 @@ const Root = () => {
     googleProvider.addScope("profile");
     googleProvider.addScope("email");
 
+
+
+// fetching all recipes
     useEffect(() => {
         fetch('https://recipe-book-server-phi.vercel.app/recipes')
             .then(res => res.json())
@@ -48,17 +51,26 @@ const Root = () => {
 
     // Fetching My Recipes
 
-    useEffect(() => {
-        const fetchRecipes = async () => {
-
-            const response = await fetch(`https://recipe-book-server-phi.vercel.app/myrecipes?email=${(user.email)}`);
-            const data = await response.json();
-            setMyRecipes(data)
-            setMyRecipesLoading(false)
-
-        };
-        fetchRecipes();
-    }, [user]);
+     useEffect(() => {
+        if (!user?.email) {
+            setMyRecipes([]);
+            setMyRecipesLoading(false);
+            return;
+        }
+        fetch(`https://recipe-book-server-phi.vercel.app/myrecipes?email=${user.email}`)
+            .then((res) => {
+                if (!res.ok) throw new Error('Failed to fetch user recipes');
+                return res.json();
+            })
+            .then((data) => {
+                setMyRecipes(data);
+                setMyRecipesLoading(false);
+            })
+            .catch((err) => {
+                console.error('Error fetching user recipes:', err);
+                setMyRecipesLoading(false);
+            });
+    }, [user,myRecipesLoading]);
 
 
 
@@ -138,7 +150,7 @@ const Root = () => {
     }
 
     // Signup
-    const handleSignUp = (email, password, name, photo) => {
+    const handleSignUp = (email, password, name, photo,from) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 updateProfile(auth.currentUser, {
@@ -153,7 +165,7 @@ const Root = () => {
                             photoURL: photo
                         };
                         setUser(updatedUser);
-                        navigate('/')
+                        navigate(from ? from : '/');
                         toast.success("SignUp Successful!")
                     })
             })
@@ -222,7 +234,8 @@ const Root = () => {
         handleDeleteRecipe,
         initialRecipes,
         initialLoading,
-        myRecipesLoading
+        myRecipesLoading,
+        setInitialLoading
     }
     return (
         <div>

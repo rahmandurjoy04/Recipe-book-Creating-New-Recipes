@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { valueContext } from '../Root';
 
 
 const SignUp = () => {
+
+    const location = useLocation()
+    const from = location.state?.from || '/';
     const { handleSignUp, handleGoogleLogin } = useContext(valueContext)
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,12 +38,12 @@ const SignUp = () => {
             alert("Password must contain atleast one special character.");
             return;
         }
-        handleSignUp(email, password,name,photo);
+        handleSignUp(email, password,name,photo,from);
 
 
     }
-    const signinWithGoogle = () => {
-        handleGoogleLogin()
+    const signinWithGoogle = (from) => {
+        handleGoogleLogin(from)
 
     }
     return (
@@ -74,7 +77,7 @@ const SignUp = () => {
                     </div>
                     <div className="space-y-2">
                         <div>
-                            <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">Sign up</button>
+                            <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50">Register</button>
                         </div>
                         <p className="px-6 text-sm text-center dark:text-gray-600">Already have an account?
                             <NavLink to={'/auth/login'} className="hover:underline dark:text-violet-600">Sign in</NavLink>.

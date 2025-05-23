@@ -14,7 +14,7 @@ const RecipeCard = ({ recipe }) => {
     }
     return (
         <div>
-            <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
+            <div className="flex flex-col mx-auto max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800">
                 
                 <div>
                     <img src={imageURL} alt="" className="object-cover rounded w-full mb-4 h-46 dark:bg-gray-500" />

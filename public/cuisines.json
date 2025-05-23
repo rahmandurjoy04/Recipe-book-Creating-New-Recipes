@@ -1,0 +1,27 @@
+[
+    {
+      "id": "001",
+      "name": "Italian",
+      "imageUrl": "https://i.ibb.co/R449sFSs/italian.webp",
+      "interests": 1200
+    },
+    {
+      "id": "002",
+      "name": "Mexican",
+      "imageUrl": "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "interests": 950
+    },
+    {
+      "id": "003",
+      "name": "Indian",
+      "imageUrl": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      "interests": 1100
+    },
+    {
+      "id": "004",
+      "name": "Chinese",
+      "imageUrl": "https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "interests": 800
+    }
+    
+  ]

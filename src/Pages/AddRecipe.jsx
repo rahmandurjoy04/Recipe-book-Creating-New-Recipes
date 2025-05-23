@@ -36,7 +36,7 @@ const AddRecipe = () => {
                     setMyRecipes([...recipes, recipeWithId]);
                 }
                 console.log('After adding new recipe', data)
-                navigate('/myrecipes')
+                navigate('/')
                 
             })
 
