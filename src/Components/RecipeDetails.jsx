@@ -8,7 +8,6 @@ const RecipeDetails = () => {
 
     const { user ,handleLike } = useContext(valueContext)
     const { title, imageURL, ingredients, instructions, likes, time, cuisine, email, _id } = useLoaderData()
-    console.log(_id);
     const [like, setLike,] = useState(likes)
 
     const handleLiked = (_id) => {
