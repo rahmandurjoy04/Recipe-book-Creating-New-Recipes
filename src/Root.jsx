@@ -18,6 +18,7 @@ const Root = () => {
     const [recipes, setRecipes] = useState([])
     const [myRecipes, setMyRecipes] = useState([])
     const [initialRecipes, setInitialRecipes] = useState([])
+    const [error,setError] = useState(false)
 
 
     const googleProvider = new GoogleAuthProvider;
@@ -33,9 +34,12 @@ const Root = () => {
             .then(data => {
                 setRecipes(data)
                 setRecipesLoading(false)
+                setError(false)
             })
-            .catch(err => console.error('Error fetching data:', err));
-    }, []);
+            .catch(err => {console.error('Error fetching data:', err)
+                setError(true)
+            });
+    }, [error]);
 
     // fetchingInitialRecipis
     useEffect(() => {
@@ -59,7 +63,7 @@ const Root = () => {
     useEffect(() => {
         if (!user?.email) {
             setMyRecipes([]);
-            setMyRecipesLoading(false);
+            // setMyRecipesLoading(false);
             return;
         }
         fetch(`https://recipe-book-server-phi.vercel.app/myrecipes?email=${user.email}`)
@@ -75,7 +79,7 @@ const Root = () => {
                 console.error('Error fetching user recipes:', err);
                 setMyRecipesLoading(true);
             });
-    }, [user, myRecipesLoading]);
+    }, [user]);
 
 
     // Fetching data for Like
@@ -236,6 +240,7 @@ const Root = () => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             setAuthLoading(false);
+            setMyRecipesLoading(false)
         })
         return () => {
             unsubscribe();
