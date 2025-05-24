@@ -50,7 +50,7 @@ const Root = () => {
                 setInitialLoading(false)
             })
             .catch(err =>{ console.error('Error fetching data:', err)
-                setInitialLoading(false)
+                setInitialLoading(true)
             });
     }, []);
 
