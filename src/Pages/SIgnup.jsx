@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { valueContext } from '../Root';
 
@@ -6,6 +6,7 @@ import { valueContext } from '../Root';
 const SignUp = () => {
 
     const location = useLocation()
+    const[errorMessage,setErrorMessage] = useState('')
     const from = location.state?.from || '/';
     const { handleSignUp, handleGoogleLogin } = useContext(valueContext)
     const handleSubmit = (e) => {
@@ -16,34 +17,34 @@ const SignUp = () => {
         const photo = e.target.photoURL.value;
         // Password Validation
         if (password.length < 6) {
-            alert('Password must be of atleast 6 characters.');
+            setErrorMessage('Password must be of atleast 6 characters.');
             return;
         }
 
 
         // Ragex Password check
         if (!/[a-z]/.test(password)) {
-            alert("Password must contain a small letter.");
+            setErrorMessage("Password must contain a small letter.");
             return;
         }
         if (!/[A-Z]/.test(password)) {
-            alert("Password must contain a capital letter.");
+            setErrorMessage("Password must contain a capital letter.");
             return;
         }
         if (!/\d/.test(password)) {
-            alert("Password must contain atleast one number.");
+            setErrorMessage("Password must contain atleast one number.");
             return;
         }
         if (!/[$%^#@]/.test(password)) {
-            alert("Password must contain atleast one special character.");
+            setErrorMessage("Password must contain atleast one special character.");
             return;
         }
         handleSignUp(email, password,name,photo,from);
 
 
     }
-    const signinWithGoogle = (from) => {
-        handleGoogleLogin(from)
+    const signinWithGoogle = () => {
+        handleGoogleLogin()
 
     }
     return (
@@ -53,7 +54,7 @@ const SignUp = () => {
                     <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
                     <p className="text-sm dark:text-gray-600">Sign Up a new account</p>
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-12">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-4">
                         <div>
                             <label htmlFor="name" className="block mb-2 text-sm">Name</label>
@@ -73,6 +74,8 @@ const SignUp = () => {
                             </div>
                             <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" required />
                         </div>
+
+                        <div className='text-red-600 text-center'>{errorMessage}</div>
 
                     </div>
                     <div className="space-y-2">

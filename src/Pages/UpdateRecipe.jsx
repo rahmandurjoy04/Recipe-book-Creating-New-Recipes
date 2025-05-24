@@ -13,6 +13,8 @@ const UpdateRecipe = () => {
         const form = e.target;
         const formData = new FormData(form);
         const UpdatedRecipeData = Object.fromEntries(formData.entries())
+        UpdatedRecipeData.likes = parseInt(UpdatedRecipeData.likes) || 0;
+
 
 
         // update Recipe to DB 
@@ -146,7 +148,7 @@ const UpdateRecipe = () => {
                         defaultValue={email}
                     />
 
-                    
+
                     <button type="submit" className="btn btn-primary w-full">
                         Update Recipe
                     </button>

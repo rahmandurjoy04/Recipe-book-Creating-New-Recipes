@@ -13,6 +13,8 @@ const AddRecipe = () => {
         const form = e.target;
         const formData = new FormData(form);
         const newRecipeData = Object.fromEntries(formData.entries())
+        newRecipeData.likes = parseInt(newRecipeData.likes) || 0;
+
 
 
         // Send Data to DB
@@ -35,7 +37,7 @@ const AddRecipe = () => {
                     setMyRecipes([...recipes, recipeWithId]);
                 }
                 navigate('/')
-                
+
             })
 
 

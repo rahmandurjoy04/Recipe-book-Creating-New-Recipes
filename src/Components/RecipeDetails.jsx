@@ -6,16 +6,18 @@ import { valueContext } from '../Root';
 const RecipeDetails = () => {
 
 
-    const {user} = useContext(valueContext)
-    const { title, imageURL, ingredients, instructions, likes, time, cuisine ,email } = useLoaderData()
-    const [like,setLike]= useState(likes)
-    const handleLike = () =>{
+    const { user ,handleLike } = useContext(valueContext)
+    const { title, imageURL, ingredients, instructions, likes, time, cuisine, email, _id } = useLoaderData()
+    console.log(_id);
+    const [like, setLike,] = useState(likes)
 
-        if(user.email !== email){
-            setLike(parseInt(like)+1)
+    const handleLiked = (_id) => {
+        if (user.email !== email) {
+            handleLike(_id,like)
+            setLike(parseInt(like) + 1)
         }
     }
-   
+
 
     return (
         <div className='my-12'>
@@ -39,7 +41,7 @@ const RecipeDetails = () => {
                     <p><span className='font-bold'>Cooking Time</span> : <span className='text-green-500'>{time} Min</span></p>
                     <div className="flex justify-center items-center space-x-2 text-sm dark:text-gray-600">
                         {/* Like Button */}
-                        <button type="button" onClick={handleLike} className="flex items-center p-1 space-x-1.5 text-xl">
+                        <button type="button" onClick={() => handleLiked(_id)} className="flex items-center p-1 space-x-1.5 text-xl">
                             <SlLike />
                         </button>
                         <span className='text-xl'>{like}</span>

@@ -4,19 +4,21 @@ import { valueContext } from '../Root';
 import { useContext } from 'react';
 
 const SignIn = () => {
-    
-    const {  handleGoogleLogin,handleSignIn } = useContext(valueContext);
+
+    const { handleGoogleLogin, handleSignIn } = useContext(valueContext);
     const location = useLocation()
     const from = location.state?.from || '/';
+
+
     const handleLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        handleSignIn(email,password,from)
+        handleSignIn(email, password, from)
 
     }
     const signinWithGoogle = () => {
-        handleGoogleLogin(from)
+        handleGoogleLogin()
 
     }
     return (

@@ -12,7 +12,7 @@ const MyRecipes = () => {
 
 
 
-    if (myRecipes.length === 0 && (authLoading || myRecipesLoading)) {
+    if (myRecipes.length === 0 || (authLoading || myRecipesLoading)) {
         return (
             <div className='flex flex-col md:flex-row justify-between md:items-center w-10/12 py-4 mx-auto'>
                 <div>

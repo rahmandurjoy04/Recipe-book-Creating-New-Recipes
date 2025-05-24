@@ -26,7 +26,7 @@ const Root = () => {
 
 
 
-// fetching all recipes
+    // fetching all recipes
     useEffect(() => {
         fetch('https://recipe-book-server-phi.vercel.app/recipes')
             .then(res => res.json())
@@ -45,13 +45,18 @@ const Root = () => {
                 setInitialRecipes(data)
                 setInitialLoading(false)
             })
-            .catch(err => console.error('Error fetching data:', err));
+            .catch(err =>{ console.error('Error fetching data:', err)
+                setInitialLoading(false)
+            });
     }, []);
+
+
+
 
 
     // Fetching My Recipes
 
-     useEffect(() => {
+    useEffect(() => {
         if (!user?.email) {
             setMyRecipes([]);
             setMyRecipesLoading(false);
@@ -68,9 +73,31 @@ const Root = () => {
             })
             .catch((err) => {
                 console.error('Error fetching user recipes:', err);
-                setMyRecipesLoading(false);
+                setMyRecipesLoading(true);
             });
-    }, [user,myRecipesLoading]);
+    }, [user, myRecipesLoading]);
+
+
+    // Fetching data for Like
+    const handleLike = (_id,like) => {
+        fetch(
+            `https://recipe-book-server-phi.vercel.app/recipes/${_id}`,
+            {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'like',
+                    likes: Number(like)
+                }),
+            }
+        )
+            .then(res => res.json())
+            .then(data => console.log(data));
+    }
+
+
+
+
 
 
 
@@ -112,11 +139,11 @@ const Root = () => {
 
 
     //google login
-    const handleGoogleLogin = (from) => {
+    const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 setUser(result.user);
-                navigate(from ? from : '/');
+                navigate( '/');
                 toast.success("SignIn With Google is Successful");
             })
             .catch((error) => {
@@ -148,7 +175,7 @@ const Root = () => {
     }
 
     // Signup
-    const handleSignUp = (email, password, name, photo,from) => {
+    const handleSignUp = (email, password, name, photo, from) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 updateProfile(auth.currentUser, {
@@ -233,7 +260,8 @@ const Root = () => {
         initialRecipes,
         initialLoading,
         myRecipesLoading,
-        setInitialLoading
+        setInitialLoading,
+        handleLike
     }
     return (
         <div>
