@@ -19,6 +19,15 @@ Welcome to the Recipe Book App, a dynamic and user-friendly platform designed fo
 * Deployment: Firebase (client), Vercel (server)
 * Other: Environment variables for secure configuration, custom 404  page, responsive design
 
+📫 Contact
+Feel free to reach out or collaborate:
+
+📧 Email: naimur.durjoy.dev@gmail.com
+
+🔗 LinkedIn: linkedin.com/in/durjoy4004
+
+💻 GitHub: github.com/rahmandurjoy04
+
 # Acknowledgments
 * Inspired by food enthusiast communities and modern web development practices.
 * Thanks to the open-source libraries (Tailwind CSS, Lottie React, etc.) that power this app.
